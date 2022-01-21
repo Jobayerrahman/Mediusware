@@ -81,7 +81,7 @@ DATABASES = {
         'USER': os.getenv('DB_USER', 'root'),
         'PASSWORD': os.getenv('DB_PASSWORD', ''),
         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3600')
+        'PORT': os.getenv('DB_PORT', '3306')
     }
 }
 
@@ -121,9 +121,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'templates/assets'
 ]
-
+STATIC_ROOT = BASE_DIR / 'assets';
 MEDIA_URL = '/media/'
 
 # Default primary key field type

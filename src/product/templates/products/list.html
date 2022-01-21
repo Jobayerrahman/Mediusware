@@ -17,8 +17,9 @@
             </div>
             <div class="col-md-2">
                 <select name="variant" id="" class="form-control">
-                    <option selected disabled>--Select A Variant--</option>
-
+                    {% for v in variant %}
+                    <option>{{v.title}}</option>
+                    {% endfor %}
                 </select>
             </div>
 
@@ -53,22 +54,24 @@
                     <th width="150px">Action</th>
                 </tr>
                 </thead>
-
                 <tbody>
+                    {% for item in product %}
                 <tr>
-                    <td>1</td>
-                    <td>T-Shirt <br> Created at : 25-Aug-2020</td>
-                    <td>Quality product in low cost</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.product.title}} <br> {{item.product.sku}}</td>
+                    <td>{{item.product.description}}</td>
                     <td>
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                             <dt class="col-sm-3 pb-0">
-                                SM/ Red/ V-Nick
+                                {{item.product_variant_one.variant.title}} / 
+                                {{item.product_variant_one.variant.title}} / 
+                                {{item.product_variant_one.variant.title}} / 
                             </dt>
                             <dd class="col-sm-9">
                                 <dl class="row mb-0">
-                                    <dt class="col-sm-4 pb-0">Price : 200.0</dt>
-                                    <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                    <dt class="col-sm-4 pb-0">Price : {{item.price}}</dt>
+                                    <dd class="col-sm-8 pb-0">InStock :{{item.stock}}</dd>
                                 </dl>
                             </dd>
                         </dl>
@@ -81,8 +84,8 @@
                         </div>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
-
             </table>
         </div>
 
@@ -91,10 +94,20 @@
     <div class="card-footer">
         <div class="row justify-content-between">
             <div class="col-md-6">
-                <p>Showing 1 to 10 out of 100</p>
+                {% if start != total and end != total %}
+                <p>Showing {{start}} to {{end}} out of {{total}}</p>
+                {% elif start != total and end == total %}
+                <p>Showing {{start}} to {{end}} out of {{total}}</p>
+                {% else %}
+                <p>Showing {{end}}th out of {{total}}</p>
+                {% endif %}
             </div>
             <div class="col-md-2">
-
+                {% for number in paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{number}}">{{number}}</a>
+                    </li>
+                {% endfor %}
             </div>
         </div>
     </div>
